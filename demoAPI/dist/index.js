@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const bcrypt_ts_1 = require("bcrypt-ts");
+const bcrypt_1 = require("bcrypt");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 const port = process.env.PORT || 3000;
@@ -31,9 +31,8 @@ app.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));
 app.post("/register", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, password } = req.body;
-    const salt = yield (0, bcrypt_ts_1.genSalt)(10);
-    const hashValue = yield (0, bcrypt_ts_1.hash)(password, salt);
-    console.log(req.body);
+    const salt = yield (0, bcrypt_1.genSalt)(10);
+    const hashValue = yield (0, bcrypt_1.hash)(password, salt);
     const login = {
         username,
         password: hashValue,
@@ -47,7 +46,7 @@ app.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     const loginUser = logins.find((login) => (login.username = username));
     console.log("loginUser", loginUser);
     console.log(loginUser);
-    const result = yield (0, bcrypt_ts_1.compare)(password, loginUser.password);
+    const result = yield (0, bcrypt_1.compare)(password, loginUser.password);
     res.send(result);
 }));
 app.listen(port, () => {
