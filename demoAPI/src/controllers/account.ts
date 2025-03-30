@@ -1,6 +1,8 @@
 import { genSalt, hash, compare } from "bcrypt";
 import { Login } from "../models/login";
+import jwt from "jsonwebtoken";
 import { newLoginAccount, findUserByUsername } from "../services/login";
+const superSecretString = "jadfajkflahsfjklasfd";
 const register = async ({
   username,
   password,
@@ -14,7 +16,6 @@ const register = async ({
   const login: Login = {
     username,
     password: hashValue,
-    salt,
   };
   const result = newLoginAccount(login);
   return result;
@@ -29,9 +30,12 @@ const login = async ({
 }) => {
   const loginUser = findUserByUsername(username);
   if (!loginUser) return undefined;
-  console.log(loginUser);
   if (await compare(password, loginUser!.password)) {
-    return loginUser;
+    const token = jwt.sign(loginUser, superSecretString, { expiresIn: "7d" });
+
+    var decoded = jwt.verify(token, superSecretString);
+    console.log('account',decoded);
+    return { token };
   }
   return undefined;
 };
