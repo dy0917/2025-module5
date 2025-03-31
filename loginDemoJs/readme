@@ -4,4 +4,9 @@ const superSecretString = "superSecretHash";
 
 superSecretString is a random string, which use to encript the json Object. in reality, it should not store in local environment. It should store in pipeline.
 
-salt is a key to calculate the hash value, when using bcrypt. it should be 8 to 12 length 
+salt is a key to calculate the hash value, when using bcrypt. it should be 8 to 12 length
+
+more details:
+
+https://www.npmjs.com/package/jsonwebtoken
+https://www.npmjs.com/package/bcryptjs
