@@ -8,9 +8,12 @@ router.post("/register", (req, res) => {
   res.sendStatus(204);
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", async (req, res) => {
   const { username, password } = req.body;
-  login(username, password) ? res.sendStatus(204) : res.sendStatus(403);
+
+  const result = await login(username, password);
+  console.log("result", result);
+  result ? res.send({ token: result }) : res.sendStatus(403);
 });
 
 module.exports = router;
