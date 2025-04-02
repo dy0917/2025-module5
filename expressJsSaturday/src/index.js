@@ -12,9 +12,8 @@ const calcRouter = require("./router/calculator");
 app.use(cors());
 app.use(express.json());
 
-if (env == "dev") {
-  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-}
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 // index route
 app.get("/", (req, res) => {
   console.log("thisis my first route");
