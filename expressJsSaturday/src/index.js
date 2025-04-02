@@ -1,4 +1,6 @@
 const express = require("express");
+const swaggerUi = require("swagger-ui-express");
+swaggerDocument = require("./swagger.json");
 const cors = require("cors");
 const app = express();
 const port = 3000;
@@ -10,6 +12,9 @@ const calcRouter = require("./router/calculator");
 app.use(cors());
 app.use(express.json());
 
+if (env == "dev") {
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+}
 // index route
 app.get("/", (req, res) => {
   console.log("thisis my first route");

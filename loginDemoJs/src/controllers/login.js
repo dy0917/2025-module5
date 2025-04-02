@@ -2,6 +2,7 @@ const { genSalt, hash, compare } = require("bcrypt");
 const { addAccount, getAccounts } = require("../services/account");
 const jwt = require("jsonwebtoken");
 const superSecretString = "superSecretHash";
+
 const createANewAccount = async (username, password) => {
   const salt = await genSalt(10);
   const hashValue = await hash(password, salt);
